@@ -1,0 +1,171 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+void transactive(){
+
+}
+int main()
+{
+    int a,b,t,r;
+    int c[100][100];
+    int refl=1,sym=1,trns=1,arefl=1;
+    int Min = 999, index = -1, count = 0;
+    cout << "Enter the size of the first array: ";
+    cin >> a;
+    cout << "Enter the  number of elements: "<<endl;
+    int *A = new int[a];
+        for (int i=0; i<a; i++){
+                int x;
+                cin >> x;
+                A[i] = x;
+        }
+        //сортування
+for (int i=0;i<a-1;++i)
+{
+for (int j=i;j<a;++j)
+{
+if (Min > A[j]) {
+Min = A[j];
+index = j;
+}}
+swap(A[i], A[index]);
+count++;
+Min = 999;
+}
+cout << endl;
+    cout << "Enter the size of the second array: ";
+    cin >> b;
+    cout << "Enter the number of elements: " << endl;
+    int *B = new int[b];
+    for (int j=0; j<b; j++){
+        int y;
+        cin >> y;
+        B[j] = y;
+    }
+for (int i=0;i<b-1;++i)
+{
+for (int j=i;j<b;++j)
+{
+if (Min > B[j]) {
+Min = B[j];
+index = j;
+}}
+swap(B[i], B[index]);
+count++;
+Min = 999;}
+cout << endl;
+cout << "The first array A: { ";
+    for (int j=0; j<a; j++){
+    cout << A[j] <<" ";
+    }
+cout << "}" << endl;
+cout << "The second array B: { ";
+    for (int j=0; j<b; j++){
+    cout << B[j] <<" ";
+    }
+cout << "}" << endl;
+cout << endl;
+cout << "R = {";
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+        cout << "{" << A[i] << ";" << B[j] << "}";
+    }
+}
+cout << "}" << endl;
+cout << endl;
+cout << "The condition is that 2a>3b." << endl;
+cout << "R = {";
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (2*A[i]>3*B[j]){
+       cout << "{" << A[i] << ";" << B[j] << "}";
+}
+            else {
+                 continue;
+            }
+    }
+}
+cout << "}" << endl;
+cout << endl;
+cout << "The matrix: " << endl;
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (2*A[i]>3*B[j]){
+                c[i][j] = 1;
+            }
+            else {
+                c[i][j] = 0;
+            }
+            cout << c[i][j] << " ";
+        } cout << endl;
+    }
+
+
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (i==j){
+                if (c[i][j] == 1){
+                    refl *= 1;
+                }
+                else{
+                    refl *= 2;
+                }
+            }
+    }
+}
+if(refl == 1){
+    cout << "Reflexive" << endl;
+}
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (i==j){
+                if (c[i][j] == 0){
+                    arefl *= 1;
+                }
+                else{
+                    arefl *= 2;
+                }
+            }
+    }
+}
+if(arefl == 1){
+    cout << "Antireflexive" << endl;
+}
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (c[i][j]==c[j][i]){
+                sym *= 1;
+            }
+            else {
+                sym *= 2;
+            }
+    }
+}
+if (sym == 1){
+    cout << "Symmetrical" << endl;
+}
+for (int i=0; i<a; i++){
+    for (int j=0; j<b; j++){
+            if (c[i][j]==1){
+                for (int l=0; l<b; l++){
+                    if (c[j][l]==1){
+                        if (c[i][l]==1){
+                           trns *= 1;
+                        }
+                        else{
+                            trns *= 2;
+                        }
+                    }
+                    else {
+                        trns *= 2;
+                    }
+                    }
+                }
+            }
+    }
+if(trns == 1){
+    cout << "Transactive" << endl;
+}
+return 0;
+}
