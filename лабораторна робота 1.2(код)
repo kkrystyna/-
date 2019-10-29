@@ -1,0 +1,50 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+void calculate(bool x, bool y, bool z){
+    bool part1;
+    part1 = x  ||!y;
+    bool part2;
+    part2=y&&!z;
+    bool part3;
+    part3= x||y;
+    bool part4;
+    part4= !part2||part3;
+    bool part5;
+    part5=!part1||part4;;
+cout<<"|"<<x<<"|"<<y<<"|"<<z<<"|"<<setw(8)<<part1<<"|"<<setw(8)<<part2<<"|"<<setw(7);
+cout<<part3<<"|"<<setw(18)<<part4<<"|"<<setw(29)<<part5<<"|"<<endl;
+
+
+}
+
+
+
+int main()
+{
+
+    cout << "(x v-y)->((y^- z)->(x v y))"<<endl ;
+    bool x,y,z;
+    cout<< "x =";
+    cin>> x;
+    cout<<"y =";
+    cin>>y;
+    cout<<"z =";
+    cin>>z;
+cout<<"|x|y|z|"<<" x v -y "<<"|"<<" y ^ -z "<<"|"<<" x v y "<<"|";
+cout<<" (y^- z)->(x v y) "<<"|"<<" (x v-y)->((y^- z)->(x v y)) "<<"|"<<endl;
+
+    calculate(x,y,z);
+calculate(1,1,0);
+calculate(1,1,1);
+calculate(1,0,0);
+calculate(1,0,1);
+calculate(0,1,0);
+calculate(0,1,1);
+calculate(0,0,0);
+calculate(0,0,1);
+
+return 0;
+}
