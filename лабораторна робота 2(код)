@@ -1,0 +1,72 @@
+#include <iostream>
+#include <stdio.h>
+
+using namespace std;
+void Print (int *array, int n , int i){
+ if(n)
+    {
+        if (n & 1)
+            cout<<array[i] << " ";
+    Print (array, n >> 1, i + 1);
+
+    }
+}
+int main()
+{
+int Min = 999, index = -1, count = 0;
+int array3[10][10];
+int a;
+int i;
+int j;
+cout<<"\nEnter measure of array A: ";
+cin >> a;
+       int array[ a ];
+       for(int i=0; i<a; i++)
+       cin>>array[i];
+       for (int i=0;i<a-1;++i)
+{
+for (int j=i;j<a;++j)
+{
+if (Min > array[j]) {
+Min = array[j];
+index = j;
+}  }
+swap(array[i], array[index]);
+count++;
+Min = 999;
+}
+       cout<<"Your array A: {";
+       for(int i=0; i<a; i++)
+       cout<<"  "<<array[i];
+       cout<<"}"<<endl;
+
+ cout<<"Elements in array after deleting duplicates {";
+ for (i = 0 ; i < a ; i ++){
+ cout<< array[i]<< "\t";
+ }
+ cout<<"}"<<endl;
+ int r;
+ cout<<endl<<"Boolean= ";
+ r = 1 << a;
+ for (i = 0; i < r; i ++){
+   Print ( array, i, 0);
+   cout<<"}"<<"{";
+ }
+   cout<<"the power of boolean= "<<i;
+
+  cout<<endl;
+  cout<<"Complement= {";
+  for(int i = 0; i<10; i++){
+    bool temp = false;
+    for (int j = 0 ;j<= a ; j++){
+        if (array[i]==array[j])
+            temp=true;
+    }
+    if (!temp){
+        cout << array[i]<<" ";
+    }
+  }
+cout<<"}"<<endl;
+
+     return 0;
+}
