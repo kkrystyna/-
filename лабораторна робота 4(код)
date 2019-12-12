@@ -1,0 +1,94 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "Ukrainian");
+	int v, count = 0, min = 0, k, t;
+	bool check = false;
+	cout << "Кiлькiсть вершин графа : ";
+	cin >> v;
+	int* vershyny = new int[v];
+	int** matrix = new int*[v];
+	int** rebra = new int*[v - 1];
+
+	for (int i = 0; i < v; i++) {
+		matrix[i] = new int[v];
+	}
+
+	for (int i = 0; i < v - 1; i++) {
+		rebra[i] = new int[2];
+	}
+	//ввід матриці ваг
+	for (int i = 0; i < v; i++) {
+		for (int j = 0; j < v; j++) {
+			cin >> matrix[i][j];
+		}
+	}
+	//беремо вершину один як початкову
+	vershyny[count] = 1;
+	count++;
+
+	for (int i = 0; count < v; i++) {
+		for (int j = 0; j < count; j++) {
+			for (int a = 0; a < v; a++) {
+				for (int m = 0; m < count; m++) {
+					//перевірка чи вершина вже була пройде, якщо так, то переходимо до наступної ітерації
+					if (vershyny[m] == a + 1) {
+						check = true;
+					}
+				}
+
+				if (check) { check = false; continue; }
+				
+				if (min == 0 && matrix[vershyny[j] - 1][a] > 0) {
+					min = matrix[vershyny[j] - 1][a];
+					k = rebra[count - 1][0] = vershyny[j]; t = rebra[count - 1][1] = a + 1;
+					continue;
+				}
+
+				if (matrix[vershyny[j] - 1][a] > 0 && matrix[vershyny[j] - 1][a] < min) {
+					min = matrix[vershyny[j] - 1][a];
+					k = rebra[count - 1][0] = vershyny[j]; t = rebra[count - 1][1] = a + 1;
+				}
+			}
+		}
+		//Обнулюємо ребро, бо вже не можемо по ньому проходити і маємо опускати в подальшому пошуку
+		matrix[k - 1][t - 1] = 0; matrix[t - 1][k - 1] = 0;
+		//Додаємо знайдену вершину в масив вершин
+		vershyny[count] = t;
+		count++;
+		min = 0;
+	}
+	//output
+	cout << "V: { ";
+
+	for (int j = 0; j < v; j++) {
+		cout << vershyny[j] << ", ";
+	}
+
+	cout << "}";
+	//і виводимо ребра
+	cout << endl << "E:{ ";
+
+	for (int j = 0; j < v - 1; j++) {
+		cout << "(" << rebra[j][0] << "," << rebra[j][1] << "),";
+	}
+	cout << "}";
+	return 0;
+
+}
+/*
+0 4 3 2 0 0 0 0 0 0 0
+4 0 0 0 2 0 1 0 0 0 0
+3 0 0 0 6 7 0 0 0 0 0
+2 0 0 0 0 2 4 0 0 0 0
+0 2 6 0 0 0 0 7 5 0 0
+0 0 7 2 0 0 0 4 0 3 0
+0 1 0 4 0 0 0 0 4 5 0
+0 0 0 0 7 4 0 0 0 0 7
+0 0 0 0 5 0 4 0 0 0 1
+0 0 0 0 0 3 5 0 0 0 3
+0 0 0 0 0 0 0 7 1 3 0
+*/
